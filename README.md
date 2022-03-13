@@ -16,7 +16,11 @@ Heatmaps from a very strong player (2700 blitz)
 
 ## It's cool but not that informative
 For now there's not much information that we can collect, we can perhaps
-conclude that the weaker player doesn't care so much for king safety and places it in the center very often.
+conclude that the weaker players doen't care so much for king safety and place them it in the center very often.
 
 ## Solution
-A more useful/interesting data would be the logarithm diferencies between each player sqares 
+A more useful/interesting data would be the logarithm diferencies between each
+player suares.
+Also restricting the search for only the x amount of moves would be more
+meaningful than not reducing.
+
