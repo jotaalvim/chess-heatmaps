@@ -9,11 +9,12 @@ import re
 #import sys
 
 #jogos = sys.argv[1]
-jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
+#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_DiogoCipreste_2022-03-12.pgn"
 
 #jogos = "/home/jotaalvim/Downloads/lichess_Lucena0202_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
+jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn"
 
 
 
