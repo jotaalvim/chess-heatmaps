@@ -1,4 +1,4 @@
-# chess-heat-maps
+# chess-heatmaps
 
 
 The darker the color means that a peace have been moved there more times.
