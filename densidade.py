@@ -9,12 +9,12 @@ import re
 #import sys
 
 #jogos = sys.argv[1]
-#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
+jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_DiogoCipreste_2022-03-12.pgn"
 
 #jogos = "/home/jotaalvim/Downloads/lichess_Lucena0202_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
-jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn"
+#jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn"
 
 
 
@@ -29,6 +29,7 @@ dBishop = {}
 dQueen  = {}
 dRook   = {}
 dPawn   = {}
+dKing   = {}
 
 #lances de cavalo
 #grep -Po '\bNx?\K[a-h][1-8]' /home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2021-03-23.pgn | sort | uniq -c  | sort -n
@@ -72,6 +73,13 @@ for jogo in games:
         else:
             dPawn[pos] = 1
 
+    for pos in re.findall(r'[0-9]+\. Kx?([a-z][1-8])',jogo):
+    #for pos in re.findall(r'\b[1-9]\. Kx?([a-z][1-8])',jogo):
+        if pos in dKing:
+            dKing[pos] += 1
+        else:
+            dKing[pos] = 1
+
 
 # quando não ha valores poe-nos a 0
 for c in ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7', 'e8', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8']:
@@ -85,6 +93,8 @@ for c in ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'b1', 'b2', 'b3', 'b4'
         dRook[c] = 0
     if c not in dPawn:
         dPawn[c] = 0
+    if c not in dKing:
+        dKing[c] = 0
 
 
 # cria uma lista com os valores
@@ -93,6 +103,7 @@ lB = []
 lQ = []
 lR = []
 lP = []
+lK = []
 
 for val in sorted(dKnight):
     lN.append(dKnight[val])
@@ -104,6 +115,8 @@ for val in sorted(dRook):
     lR.append(dRook[val])
 for val in sorted(dPawn):
     lP.append(dPawn[val])
+for val in sorted(dKing):
+    lK.append(dKing[val])
 
 
 # parte uma lista numa matriz de listas de tamanho 8
@@ -114,6 +127,7 @@ pB = [lB[i:i + n] for i in range(0, len(lB), n)]
 pQ = [lQ[i:i + n] for i in range(0, len(lQ), n)] 
 pR = [lR[i:i + n] for i in range(0, len(lR), n)] 
 pP = [lP[i:i + n] for i in range(0, len(lP), n)] 
+pK = [lK[i:i + n] for i in range(0, len(lK), n)] 
 
 # trapalhada para por o tabuleiro com orientação das brancas
 for row in pN:
@@ -125,6 +139,8 @@ for row in pQ:
 for row in pR:
     row.reverse()
 for row in pP:
+    row.reverse()
+for row in pK:
     row.reverse()
 
 numpy_array = np.array(pN)
@@ -146,22 +162,27 @@ pR = transpose.tolist()
 numpy_array = np.array(pP)
 transpose = numpy_array.T
 pP = transpose.tolist()
+
+numpy_array = np.array(pK)
+transpose = numpy_array.T
+pK = transpose.tolist()
+
 #plt.imshow( pN , cmap = 'binary')
 #plt.imshow( pN , cmap = 'binary' , interpolation = 'nearest',  norm=LogNorm())
 ##plt.imshow( pN ,  norm=LogNorm())
 #plt.title( "Knight heat map" )
-#plt.show()
 
 
-fig, axes = plt.subplots(ncols=5, figsize=(1, 8))
+fig, axes = plt.subplots(ncols=6, figsize=(1, 8))
 
-ax1, ax2, ax3, ax4, ax5 = axes
+ax1, ax2, ax3, ax4, ax5, ax6 = axes
 
 im1 = ax1.matshow(pN, cmap = 'binary')
 im2 = ax2.matshow(pB, cmap = 'binary')
 im3 = ax3.matshow(pQ, cmap = 'binary')
 im4 = ax4.matshow(pR, cmap = 'binary')
 im5 = ax5.matshow(pP, cmap = 'binary')
+im6 = ax6.matshow(pK, cmap = 'binary')
 
 #plt.title( "Knight heat map" )
 plt.show()
