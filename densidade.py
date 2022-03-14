@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
+import matplotlib.pyplot as plt 
 from matplotlib.colors import LogNorm, Normalize
 from mpl_toolkits.axes_grid1 import AxesGrid
 
@@ -16,13 +15,30 @@ jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-
 #jogos = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn"
 
+f = open(jogos, "r") 
+
+texto = f.read() 
+
+#username of the person in study, might be automated later?
+username = "jotaalvim"
+
+#Logarithm scale option
+#log = False
+log = True
+
+#color of analysis  'black', 'white', 'both'
+color = 'white'
 
 
+def getGames(color):
+    #games = re.findall(r'\n1.*',texto)
+    if (color == 'white'):
+        games = re.findall(fr'White "{username}"(?:.|\n)*?\n(1\..*)',texto)
+    if (color == 'black'):
+        games = re.findall(fr'Black "{username}"(?:.|\n)*?\n(1\..*)',texto)
+    return games
 
-f = open(jogos, "r")
-texto = f.read()
-
-games = re.findall(r'\n1.*',texto)
+games = getGames(color)
 
 dKnight = {}
 dBishop = {}
@@ -35,46 +51,55 @@ dKing   = {}
 #grep -Po '\bNx?\K[a-h][1-8]' /home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2021-03-23.pgn | sort | uniq -c  | sort -n
 
 for jogo in games:
-    #for pos in re.findall(r'Nx?([a-z][1-8])',jogo):
-    for pos in re.findall(r'[0-9]+\. Nx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Nx?([a-z][1-8])',jogo):
+    #for pos in re.findall(r'[0-9]+\. Nx?([a-z][1-8])',jogo):
+    for pos in re.findall(r'\b[1-6]\. Nx?([a-z][1-8])',jogo):
         if pos in dKnight:
             dKnight[pos] += 1
         else:
             dKnight[pos] = 1
 
-
-    for pos in re.findall(r'[0-9]+\. Bx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Nx?([a-z][1-8])',jogo):
+    #for pos in re.findall(r'[0-9]+\. Bx?([a-z][1-8])',jogo):
+    for pos in re.findall(r'\b[1-6]\. Bx?([a-z][1-8])',jogo):
         if pos in dBishop:
             dBishop[pos] += 1
         else:
             dBishop[pos] = 1
 
-    for pos in re.findall(r'[0-9]+\. Qx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Nx?([a-z][1-8])',jogo):
+    #for pos in re.findall(r'[0-9]+\. Qx?([a-z][1-8])',jogo):
+    for pos in re.findall(r'\b[1-6]\. Qx?([a-z][1-8])',jogo):
         if pos in dQueen:
             dQueen[pos] += 1
         else:
             dQueen[pos] = 1
 
-    for pos in re.findall(r'[0-9]+\. Rx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Nx?([a-z][1-8])',jogo):
+    #for pos in re.findall(r'[0-9]+\. Rx?([a-z][1-8])',jogo):
+    for pos in re.findall(r'\b[1-6]\. Rx?([a-z][1-8])',jogo):
         if pos in dRook:
             dRook[pos] += 1
         else:
             dRook[pos] = 1
 
+    #for pos in re.findall(r'[0-9]+\. (?:[a-h]x)?([a-z][1-8])',jogo):
+    for pos in re.findall(r'\b[0-6]\. (?:[a-h]x)?([a-z][1-8])',jogo):
+        i = 1
+        fim = 10
 
-    for pos in re.findall(r'[0-9]+\. (?:[a-h]x)?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Nx?([a-z][1-8])',jogo):
+        #bocado = re.findall(f'{i}\. .* {fim+1}',jogo)
+        
+        #PORQUE NAO FUNCIONA ↓
+        #bocado = re.findall(f'\b{i}\. .* {fim+1}',jogo)
+
+        #                                 fim = 300
+        gameSlice = re.findall(f'{i}\. .* (?:{fim})?',jogo)
+
+
         if pos in dPawn:
             dPawn[pos] += 1
         else:
             dPawn[pos] = 1
 
-    for pos in re.findall(r'[0-9]+\. Kx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Kx?([a-z][1-8])',jogo):
+    #for pos in re.findall(r'[0-9]+\. Kx?([a-z][1-8])',jogo):
+    for pos in re.findall(r'\b[1-9]\. Kx?([a-z][1-8])',jogo):
         if pos in dKing:
             dKing[pos] += 1
         else:
@@ -173,19 +198,28 @@ pK = transpose.tolist()
 #plt.title( "Knight heat map" )
 
 
-fig, axes = plt.subplots(ncols=6, figsize=(1, 8))
-
+fig, axes = plt.subplots(ncols=6, figsize=(80, 15))
+#fig, axes = plt.subplots(ncols=6)
+#fig.set_figheight(80)
+#fig.set_figwidth(15)
 ax1, ax2, ax3, ax4, ax5, ax6 = axes
 
-im1 = ax1.matshow(pN, cmap = 'binary')
-im2 = ax2.matshow(pB, cmap = 'binary')
-im3 = ax3.matshow(pQ, cmap = 'binary')
-im4 = ax4.matshow(pR, cmap = 'binary')
-im5 = ax5.matshow(pP, cmap = 'binary')
-im6 = ax6.matshow(pK, cmap = 'binary')
+if (log):
+    im1 = ax1.matshow(pN, cmap = 'binary', norm=LogNorm())
+    im2 = ax2.matshow(pB, cmap = 'binary', norm=LogNorm())
+    im3 = ax3.matshow(pQ, cmap = 'binary', norm=LogNorm())
+    im4 = ax4.matshow(pR, cmap = 'binary', norm=LogNorm())
+    im5 = ax5.matshow(pP, cmap = 'binary', norm=LogNorm())
+    im6 = ax6.matshow(pK, cmap = 'binary', norm=LogNorm())
+elif:
+    im1 = ax1.matshow(pN, cmap = 'binary')
+    im2 = ax2.matshow(pB, cmap = 'binary')
+    im3 = ax3.matshow(pQ, cmap = 'binary')
+    im4 = ax4.matshow(pR, cmap = 'binary')
+    im5 = ax5.matshow(pP, cmap = 'binary')
+    im6 = ax6.matshow(pK, cmap = 'binary')
 
 #plt.title( "Knight heat map" )
+plt.savefig('assets/teste.svg', dpi= 100)
+plt.savefig('assets/teste.png', dpi= 100)
 plt.show()
-
-
-
