@@ -10,25 +10,27 @@ import re
 #grep -Po '\bNx?\K[a-h][1-8]' /home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2021-03-23.pgn | sort | uniq -c  | sort -n
 
 #jogos = sys.argv[1]
-jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
+#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_DiogoCipreste_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Lucena0202_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
-#jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn"
-
+jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn" 
 f = open(jogos, "r") 
 
 texto = f.read() 
 
 #username of the person in study, might be automated later?
-username = "jotaalvim"
+#username = "jotaalvim"
+#username = "Portomas"
+username = "LordVeldergrath"
 
 #Logarithm scale option
 log = False
 #log = True
 
 #color of analysis  'black', 'white', 'both'
-color = 'white'
+#color = 'white'
+color = 'black'
 
 
 def getGames(color):
@@ -44,7 +46,7 @@ dic = { 'N' : {}, 'B' : {}, 'Q' : {}, 'K' : {}, 'R' : {}, 'P' : {} }
 
 for jogo in games:
     i = 1
-    fim = 20
+    fim = 200
 
     gameSlice = re.findall(fr'\b{i}\. (.*?)(?:{fim+1}|1000)',jogo+'1000')[0]
 
@@ -58,41 +60,6 @@ for jogo in games:
             dic[peca][pos] += 1
         else:
             dic[peca][pos]  = 1
-
-    ##for pos in re.findall(r'[0-9]+\. Nx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-6]\. Nx?([a-z][1-8])',jogo):
-    #    if pos in dKnight:
-    #        dKnight[pos] += 1
-    #    else:
-    #        dKnight[pos] = 1
-
-    ##for pos in re.findall(r'[0-9]+\. Bx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-6]\. Bx?([a-z][1-8])',jogo):
-    #    if pos in dBishop:
-    #        dBishop[pos] += 1
-    #    else:
-    #        dBishop[pos] = 1
-
-    ##for pos in re.findall(r'[0-9]+\. Qx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-6]\. Qx?([a-z][1-8])',jogo):
-    #    if pos in dQueen:
-    #        dQueen[pos] += 1
-    #    else:
-    #        dQueen[pos] = 1
-
-    ##for pos in re.findall(r'[0-9]+\. Kx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-9]\. Kx?([a-z][1-8])',jogo):
-    #    if pos in dKing:
-    #        dKing[pos] += 1
-    #    else:
-    #        dKing[pos] = 1
-
-    ##for pos in re.findall(r'[0-9]+\. Rx?([a-z][1-8])',jogo):
-    #for pos in re.findall(r'\b[1-6]\. Rx?([a-z][1-8])',jogo):
-    #    if pos in dRook:
-    #        dRook[pos] += 1
-    #    else:
-    #        dRook[pos] = 1
 
     for pos in re.findall(fr'[0-9]+\. {pretas}(?:[a-h]x)?([a-z][1-8])',gameSlice):
         if pos in dic['P']:
@@ -155,20 +122,19 @@ fig, axes = plt.subplots(ncols=6, figsize=(80, 15))
 ax1, ax2, ax3, ax4, ax5, ax6 = axes
 
 if (log):
-    im1 = ax1.matshow(dPlot['N'], cmap = 'binary', norm=LogNorm())
-    im2 = ax2.matshow(dPlot['Q'], cmap = 'binary', norm=LogNorm())
+    im1 = ax1.matshow(dPlot['P'], cmap = 'binary', norm=LogNorm())
+    im2 = ax2.matshow(dPlot['N'], cmap = 'binary', norm=LogNorm())
     im3 = ax3.matshow(dPlot['B'], cmap = 'binary', norm=LogNorm())
-    im4 = ax4.matshow(dPlot['P'], cmap = 'binary', norm=LogNorm())
-    im5 = ax5.matshow(dPlot['K'], cmap = 'binary', norm=LogNorm())
-    im6 = ax6.matshow(dPlot['R'], cmap = 'binary', norm=LogNorm())
+    im4 = ax4.matshow(dPlot['R'], cmap = 'binary', norm=LogNorm())
+    im5 = ax5.matshow(dPlot['Q'], cmap = 'binary', norm=LogNorm())
+    im6 = ax6.matshow(dPlot['K'], cmap = 'binary', norm=LogNorm())
 else:
-
-    im1 = ax1.matshow(dPlot['N'])
-    im2 = ax2.matshow(dPlot['Q'])
+    im1 = ax1.matshow(dPlot['P'])
+    im2 = ax2.matshow(dPlot['N'])
     im3 = ax3.matshow(dPlot['B'])
-    im4 = ax4.matshow(dPlot['P'])
-    im5 = ax5.matshow(dPlot['K'])
-    im6 = ax6.matshow(dPlot['R'])
+    im4 = ax4.matshow(dPlot['R'])
+    im5 = ax5.matshow(dPlot['Q'])
+    im6 = ax6.matshow(dPlot['K'])
 
 #plt.title( "Knight heat map" )
 plt.savefig('assets/teste.svg', dpi= 100)
