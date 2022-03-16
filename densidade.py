@@ -4,33 +4,64 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, Normalize
 from mpl_toolkits.axes_grid1 import AxesGrid
 import re
+from jjcli import * 
 #import sys
 
 #lances de cavalo
 #grep -Po '\bNx?\K[a-h][1-8]' /home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2021-03-23.pgn | sort | uniq -c  | sort -n
 
 #jogos = sys.argv[1]
-#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
+
+jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_DiogoCipreste_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Lucena0202_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
-jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn" 
-f = open(jogos, "r") 
+#jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn" 
+#jogos = "/home/jotaalvim/Downloads/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
 
+
+#c = clfilter(opt="do:")     ## option values in c.opt dictionary
+#for texto in c.text():
+
+
+f = open(jogos, "r") 
 texto = f.read() 
 
 #username of the person in study, might be automated later?
-#username = "jotaalvim"
+username = "jotaalvim"
 #username = "Portomas"
-username = "LordVeldergrath"
+#username = "LordVeldergrath"
+#username = "Tigran-Harutyunyan"
 
-#Logarithm scale option
-log = False
-#log = True
 
 #color of analysis  'black', 'white', 'both'
 #color = 'white'
-color = 'black'
+#color = 'black'
+
+
+c = clfilter(opt="blu:e:")
+
+
+if '-e' in c.opt:
+    end = int(c.opt['-e'])
+else:
+    end = 300
+
+
+if '-u' in c.opt:
+    username = c.opt['-u']
+
+
+#Logarithm scale option
+if '-l' in c.opt:
+    log = True
+else:
+    log = False
+
+if '-b' in c.opt:
+    color = 'black'
+else:
+    color = 'white'
 
 
 def getGames(color):
@@ -42,13 +73,16 @@ def getGames(color):
 
 games = getGames(color)
 
-dic = { 'N' : {}, 'B' : {}, 'Q' : {}, 'K' : {}, 'R' : {}, 'P' : {} } 
+dic = { 'N':{}, 'B':{}, 'Q':{}, 'K':{}, 'R':{}, 'P':{} } 
 
 for jogo in games:
     i = 1
-    fim = 200
 
-    gameSlice = re.findall(fr'\b{i}\. (.*?)(?:{fim+1}|1000)',jogo+'1000')[0]
+    gameSlice = re.findall(fr'\b{i}\. (.*?)(?:{end+1}|1000)',jogo+'1000')
+    if gameSlice == []:
+        gameSlice = ''
+    else:
+        gameSlice  = gameSlice[0]
 
     if (color == 'black'):
         pretas = r'\S+ '
