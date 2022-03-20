@@ -214,9 +214,8 @@ def difTable (color, jogos, jogos2 ,username, username2):
 
 
 
-#dPlot = difTable (color, jogos, jogos2, username , username2)
-dPlot  = moveTable(color, jogos , username) 
-#dPlot = moveTable(color, jogos2, username2) 
+dPlot = difTable (color, jogos2, jogos3, username2 , username3)
+#dPlot  = moveTable(color, jogos3 , username3) 
 
 
 
