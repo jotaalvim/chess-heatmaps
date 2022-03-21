@@ -27,8 +27,9 @@ then by the stronger player. It's hard to say but those things might be happenin
 ## Differences between players 
 A more useful and interesting data would be the logarithm differences between 
 the moves from each player. Here is an example of the differences between a
-stronger and a medium player, in this case the squares more highlighted tend 
-to be "better" squares and not as frequently player for the medium player pieces.
+stronger and a medium player, in this case the squares more yellow/highlighted are 
+squares not played as frequently by the medium player compared to the strong one, 
+and therefore tend to be "better" squares for the pieces.
 
 ![Screen shot](./assets/4.png)
 
