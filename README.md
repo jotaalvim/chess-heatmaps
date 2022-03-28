@@ -49,7 +49,7 @@ strong player games
 ![](./assets/7.png)
 
 
-## Where does each piece captures the most 
+## Where does each piece captures others?
 Here's an example of the squares where each piece tends to capture others:
 
 ![](./assets/8.png)
@@ -59,4 +59,5 @@ Here's an example of the squares where each piece tends to capture others:
 
 
 ## Where does each piece goes to die
+Here's an example of the squares where each piece gets captured 
 ## Where does each piece stays the longest
