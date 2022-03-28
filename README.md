@@ -7,15 +7,15 @@ These are the heatmaps from the knight, bishop, queen, rooks , pawns and the kin
 
 Heatmaps from a weak player (800 blitz lichess)
 
-![Screen shot](./assets/1.png)
+![](./assets/1.png)
 
 Heatmaps from a medium/average player (2000 blitz lichess)
 
-![Screen shot](./assets/2.png)
+![](./assets/2.png)
 
 Heatmaps from a very strong player (2700 blitz lichess)
 
-![Screen shot](./assets/3.png)
+![](./assets/3.png)
 
 ## It's cool but not that informative
 From simply looking at the maps there's not much information that we can collect, we can perhaps
@@ -31,9 +31,21 @@ stronger and a medium player, in this case the squares more yellow/highlighted a
 squares not played as frequently by the medium player compared to the strong one, 
 and therefore tend to be "better" squares for the pieces.
 
-![Screen shot](./assets/4.png)
+![](./assets/4.png)
 
 ## Opening analysis
 The heatmap but restricting the search for only the x amount of moves. Here's
-an example of the first 
+an example of the first 10 moves from the 
 
+
+weak player 
+
+![](./assets/5.png)
+
+medium player
+
+![](./assets/6.png)
+
+strong player
+
+![](./assets/7.png)

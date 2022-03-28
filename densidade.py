@@ -6,8 +6,7 @@ from mpl_toolkits.axes_grid1 import AxesGrid
 import re
 from jjcli import * 
 import math
-#import sys
-
+#import sys 
 #grep -Po '\bNx?\K[a-h][1-8]' /home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2021-03-23.pgn | sort | uniq -c  | sort -n
 
 #jogos = sys.argv[1]
@@ -15,7 +14,7 @@ import math
 jogos2 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
 jogos = "/home/jotaalvim/Downloads/lichess_DiogoCipreste_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_Lucena0202_2022-03-11.pgn"
-#jogos = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
+jogos4 = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn" 
 jogos3 = "/home/jotaalvim/Downloads/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
 
@@ -30,17 +29,25 @@ texto = f.read()
 #username of the person in study, might be automated later?
 username = "DiogoCipreste"
 username2= "jotaalvim"
-#username = "Portomas"
+username4 = "Portomas"
 #username = "LordVeldergrath"
 username3 = "Tigran-Harutyunyan"
 
-c = clfilter(opt="blu:e:")
+c = clfilter(opt="blu:f:t:")
 
-#Number of moves option
-if '-e' in c.opt:
-    end = int(c.opt['-e'])
+
+#Number of moves option, t stands for 'to' 
+if '-t' in c.opt:
+    end = int(c.opt['-t'])
 else:
-    end = 300
+    end = 400
+
+#Number of moves option, f stands for 'from' 
+if '-f' in c.opt:
+    i = int(c.opt['-f'])
+else:
+    i = 1
+
 #Username option
 if '-u' in c.opt:
     username = c.opt['-u']
@@ -68,14 +75,9 @@ def getGames(color,path, username):
 def moveTable (color, path, username):
     games = getGames(color, path, username)
 
-    
-
-
     dic = { 'N':{}, 'B':{}, 'Q':{}, 'K':{}, 'R':{}, 'P':{} } 
 
     for jogo in games:
-        i = 1
-
         gameSlice = re.findall(fr'\b{i}\. (.*?)(?:{end+1}|1000)',jogo+'1000')
         if gameSlice == []:
             gameSlice = ''
@@ -105,7 +107,7 @@ def moveTable (color, path, username):
 
         #white short castle
         if color == 'white':
-            wsc= re.findall(r'\d+\. O-O',jogo)
+            wsc= re.findall(r'\d+\. O-O',gameSlice)
             n = len(wsc)
             if 'g1' in dic['K']:
                 dic['K']['g1'] += n
@@ -116,7 +118,7 @@ def moveTable (color, path, username):
             else:
                 dic['R']['f1'] = n
             #white long castle
-            wlc= re.findall(r'\d+\. O-O-O',jogo)
+            wlc= re.findall(r'\d+\. O-O-O',gameSlice)
             n = len(wlc)
             if 'c1' in dic['K']:
                 dic['K']['c1'] += n
@@ -129,7 +131,7 @@ def moveTable (color, path, username):
 
         if color == 'black':
             #black short castle
-            bsc= re.findall(r'\d+\. \w+ O-O',jogo)
+            bsc= re.findall(r'\d+\. \w+ O-O',gameSlice)
             n = len(bsc)
             if 'g8' in dic['K']:
                 dic['K']['g8'] += n
@@ -141,7 +143,7 @@ def moveTable (color, path, username):
             else:
                 dic['R']['f8'] = n
             #black long castle
-            blc= re.findall(r'\d+\. \w+ O-O-O',jogo)
+            blc= re.findall(r'\d+\. \w+ O-O-O',gameSlice)
             n = len(blc)
             if 'c8' in dic['K']:
                 dic['K']['c8'] += n
@@ -214,14 +216,14 @@ def difTable (color, jogos, jogos2 ,username, username2):
 
 
 
-dPlot = difTable (color, jogos2, jogos3, username2 , username3)
-#dPlot  = moveTable(color, jogos3 , username3) 
+#dPlot = difTable (color, jogos2, jogos3, username2 , username3)
 
-
+#dPlot  = moveTable(color, jogos , username) 
+#dPlot  = moveTable(color, jogos2 , username2) 
+dPlot  = moveTable(color, jogos3 , username3) 
+#dPlot  = moveTable(color, jogos4 , username4) 
 
 fig, axes = plt.subplots(ncols=6, figsize=(80, 15))
-#fig.set_figheight(80)
-#fig.set_figwidth(15)
 
 ax1, ax2, ax3, ax4, ax5, ax6 = axes
 
@@ -240,7 +242,6 @@ else:
     im4 = ax4.matshow(dPlot['R'])
     im5 = ax5.matshow(dPlot['Q'])
     im6 = ax6.matshow(dPlot['K'])
-
 #plt.title( "Knight heat map" )
 plt.savefig('assets/teste.svg', dpi= 100)
 plt.savefig('assets/teste.png', dpi= 100)
