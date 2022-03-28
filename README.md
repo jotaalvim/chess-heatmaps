@@ -1,6 +1,5 @@
 # chess-heatmaps
 
-
 Heatmap representation of chess moves, it shows the squares that each piece has been moved to more times.
 
 These are the heatmaps from the knight, bishop, queen, rooks , pawns and the king, respectively, in the player's white games.
@@ -35,17 +34,29 @@ and therefore tend to be "better" squares for the pieces.
 
 ## Opening analysis
 The heatmap but restricting the search for only the x amount of moves. Here's
-an example of the first 10 moves from the 
+an example of the first 10 moves from:
 
-
-weak player 
+weak player games
 
 ![](./assets/5.png)
 
-medium player
+medium player games
 
 ![](./assets/6.png)
 
-strong player
+strong player games
 
 ![](./assets/7.png)
+
+
+## Where does each piece captures the most 
+Here's an example of the squares where each piece tends to capture others:
+
+![](./assets/8.png)
+![](./assets/9.png)
+![](./assets/10.png)
+
+
+
+## Where does each piece goes to die
+## Where does each piece stays the longest
