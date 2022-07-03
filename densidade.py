@@ -12,12 +12,12 @@ import math
 #jogos = sys.argv[1]
 
 jogos2 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
-jogos = "/home/jotaalvim/Downloads/lichess_DiogoCipreste_2022-03-12.pgn"
-#jogos = "/home/jotaalvim/Downloads/lichess_Lucena0202_2022-03-11.pgn"
-#jogos = "/home/jotaalvim/Downloads/lichess_LordVeldergrath_2022-03-13.pgn" 
-jogos3 = "/home/jotaalvim/Downloads/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
-jogos4 = "/home/jotaalvim/Downloads/lichess_Portomas_2022-03-11.pgn"
-jogos5 = "/home/jotaalvim/Downloads/lichess_rp_o_02_2022-03-28.pgn"
+jogos  = "/home/jotaalvim/Documents/bases_dados/outras/lichess_DiogoCipreste_2022-03-12.pgn"
+#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Lucena0202_2022-03-11.pgn"
+#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_LordVeldergrath_2022-03-13.pgn" 
+jogos3 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
+jogos4 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Portomas_2022-03-11.pgn"
+jogos5 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_rp_o_02_2022-03-28.pgn"
 
 
 #c = clfilter(opt="do:")     ## option values in c.opt dictionary
