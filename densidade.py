@@ -11,8 +11,8 @@ import math
 
 #jogos = sys.argv[1]
 
-jogos2 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
-jogos  = "/home/jotaalvim/Documents/bases_dados/outras/lichess_DiogoCipreste_2022-03-12.pgn"
+jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
+jogos2 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_DiogoCipreste_2022-03-12.pgn"
 #jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Lucena0202_2022-03-11.pgn"
 #jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_LordVeldergrath_2022-03-13.pgn" 
 jogos3 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
@@ -27,7 +27,7 @@ jogos5 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_rp_o_02_2022-03-2
 f = open(jogos, "r") 
 texto = f.read() 
 
-#username of the person in study, might be automated later?
+#username of the person in study 
 username = "DiogoCipreste"
 username2= "jotaalvim"
 username3 = "Tigran-Harutyunyan"
@@ -37,10 +37,9 @@ username5 = "rp_o_02"
 
 c = clfilter(opt="blu:f:t:p:")
 
-#FIXME
-#fazer opçao para meter paths como argumento
-#if '-p' in c.opt:
-#    jogo = c.opt['-p']
+# path option 
+if '-p' in c.opt:
+    jogo = c.opt['-p']
 
 #Number of moves option, t stands for 'to' 
 if '-t' in c.opt:
@@ -107,12 +106,12 @@ def moveTable (color, path, username):
                 dic['P'][pos]  = 1
 
 
-        # TROCAR O-O por Rg1 e Tf1 (se calhar a torre não)
-        # n vai ser sempre 1 no máximo
 
+        # replace O-O with Rg1 and Tf1
         #white short castle
         if color == 'white':
             wsc= re.findall(r'\d+\. O-O',gameSlice)
+            # n is at maximum 1
             n = len(wsc)
             if 'g1' in dic['K']:
                 dic['K']['g1'] += n
@@ -159,10 +158,9 @@ def moveTable (color, path, username):
             else:
                 dic['R']['d8'] = n
 
-    # quando não ha valores poe-nos a 0
+    # when there are no vallues put's them to 0
     fill0(dic)
 
-    # cria uma lista com os valores
     l = { 'N' : [], 'B' : [], 'Q' : [], 'R' : [], 'P' : [], 'K' : [] }
 
     for key in 'NBQRPK':
@@ -175,11 +173,11 @@ def moveTable (color, path, username):
     n = 8
 
     dPlot = { 'N':None, 'Q':None, 'P':None, 'K':None, 'R':None, 'B':None}
+
     for key in 'NQPKRB':
         dPlot[key] = [l[key][i:i + n] for i in range(0, len(l[key]), n)] 
 
     # trapalhada para por o tabuleiro com orientação das brancas
-
     for key in 'NQPKRB':
         for row in dPlot[key]:
             row.reverse()
@@ -277,12 +275,12 @@ def capturePieces (color,path, username):
 
 #dPlot = difTable (color, jogos2, jogos3, username2 , username3)
 
-#dPlot  = moveTable(color, jogos , username) 
+dPlot  = moveTable(color, jogos , username) 
 #dPlot  = moveTable(color, jogos2 , username2) 
 #dPlot  = moveTable(color, jogos3 , username3) 
 #dPlot  = moveTable(color, jogos4 , username4) 
 #dPlot  = moveTable(color, jogos5 , username5) 
-dPlot  = capturePieces(color, jogos3 , username3) 
+#dPlot  = capturePieces(color, jogos3 , username3) 
 
 fig, axes = plt.subplots(ncols=6, figsize=(80, 15))
 ax1, ax2, ax3, ax4, ax5, ax6 = axes
@@ -302,6 +300,6 @@ else:
     im5 = ax5.matshow(dPlot['Q'])
     im6 = ax6.matshow(dPlot['K'])
 #plt.title( "Knight heat map" )
-plt.savefig('assets/teste.svg', dpi= 100)
-plt.savefig('assets/teste.png', dpi= 100)
+
+plt.savefig('outputs/heatmap.png', dpi= 100)
 plt.show()
