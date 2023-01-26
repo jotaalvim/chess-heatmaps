@@ -1,10 +1,8 @@
 # chess-heatmaps
-
 Heatmap representation of chess moves, it shows the squares that each piece has been moved to more times, it can also show what's the
 differences between the moves from each player.
 
 # Usage
-
 I only tested with pgn files from the lichess.org website but most of
 them follow the same format. I'll leave in a assets/ folder one example of
 a pgn file in case you want to have a look.
@@ -35,12 +33,11 @@ python densidade.py -f 20 -t 40 -u jotaalvim -p assets/lichess_jotaalvim_2022-03
 ```
 The output is the following:
 ![](./assets/11.png)
----
+
+I'll add the way to calculate differences between players soon
 
 ### Outputs
 At the moment the output goes to the "ouputs" folder to the heatmap.png file
-
----
 
 
 # Dependencies
@@ -72,18 +69,17 @@ Heatmaps from a medium/average player (2000 blitz lichess)
 Heatmaps from a very strong player (2700 blitz lichess)
 
 ![](./assets/3.png)
----
 
 ## It's cool but not that informative
+
 From simply looking at the maps, there's not much information that we can collect, we can perhaps
 conclude that the weaker players often move the queen to the more obvious d1-h5
 diagonal instead of placing in c2 or d2. Such thigs happen a lot when using different openings. Another, is
 that the dark bishop in played fewer times by the weaker and medium players
 then by the stronger player. It's impossible to conclude something interesting due to the fact that people are probably playing different openings.
 
----
-
 ## Differences between players 
+
 A more useful and interesting data would be the logarithm differences between 
 the moves from each player. Here is an example of the differences between a
 stronger and a medium player, in this case the squares more yellow/highlighted are 
@@ -91,7 +87,6 @@ squares not played as frequently by the medium player compared to the strong one
 and therefore tend to be "better" squares for the pieces.
 
 ![](./assets/4.png)
----
 
 ## Opening analysis
 The heatmap but restricting the search for only the x amount of moves. Here's
@@ -107,6 +102,8 @@ medium player games
 
 ![](./assets/6.png)
 
+--- 
+
 strong player games
 
 ![](./assets/7.png)
@@ -120,8 +117,6 @@ Here's an example of the squares where each piece tends to capture others:
 ![](./assets/9.png)
 ![](./assets/10.png)
 
-
 ## todo 
  * Where does each piece goes to die
-    - Here's an example of the squares where each piece gets captured 
  * Where does each piece stays the longest
