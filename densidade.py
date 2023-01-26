@@ -11,35 +11,36 @@ import math
 
 #jogos = sys.argv[1]
 
-jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
-jogos2 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_DiogoCipreste_2022-03-12.pgn"
-#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Lucena0202_2022-03-11.pgn"
-#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_LordVeldergrath_2022-03-13.pgn" 
-jogos3 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
-jogos4 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Portomas_2022-03-11.pgn"
-jogos5 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_rp_o_02_2022-03-28.pgn"
-
-
-#c = clfilter(opt="do:")     ## option values in c.opt dictionary
+#jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_jotaalvim_2022-03-12.pgn"
+#jogos2 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_DiogoCipreste_2022-03-12.pgn"
+##jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Lucena0202_2022-03-11.pgn"
+##jogos = "/home/jotaalvim/Documents/bases_dados/outras/lichess_LordVeldergrath_2022-03-13.pgn" 
+#jogos3 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Tigran-Harutyunyan_2022-03-15.pgn" 
+#jogos4 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_Portomas_2022-03-11.pgn"
+#jogos5 = "/home/jotaalvim/Documents/bases_dados/outras/lichess_rp_o_02_2022-03-28.pgn"
+#
+#
+##c = clfilter(opt="do:")     ## option values in c.opt dictionary
 #for texto in c.text():
 
 
-f = open(jogos, "r") 
-texto = f.read() 
 
 #username of the person in study 
-username = "DiogoCipreste"
-username2= "jotaalvim"
-username3 = "Tigran-Harutyunyan"
-username4 = "Portomas"
-username5 = "rp_o_02"
+#username = "DiogoCipreste"
+#username2= "jotaalvim"
+#username3 = "Tigran-Harutyunyan"
+#username4 = "Portomas"
+#username5 = "rp_o_02"
 
 
 c = clfilter(opt="blu:f:t:p:")
 
 # path option 
 if '-p' in c.opt:
-    jogo = c.opt['-p']
+    jogos = c.opt['-p']
+
+f = open(jogos, "r") 
+texto = f.read() 
 
 #Number of moves option, t stands for 'to' 
 if '-t' in c.opt:
