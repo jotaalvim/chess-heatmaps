@@ -1,7 +1,7 @@
 # chess-heatmaps
 
 Heatmap representation of chess moves, it shows the squares that each piece has been moved to more times, it can also show what's the
-differences (logarithm) between the moves from each player.
+differences between the moves from each player.
 
 # Usage
 
@@ -37,11 +37,17 @@ The output is the following:
 ![](./assets/11.png)
 ---
 
+### Outputs
+At the moment the output goes to the "ouputs" folder to the heatmap.png file
+
+---
+
+
 # Dependencies
 
 Make sure you have [jjcli](https://pypi.org/project/jjcli) module instaled, you can install it by:
 ```
-$ pip install jjcli
+pip install jjcli
 ```
 I also use mathplotlib
 ```
@@ -114,7 +120,6 @@ Here's an example of the squares where each piece tends to capture others:
 ![](./assets/9.png)
 ![](./assets/10.png)
 
----
 
 ## todo 
  * Where does each piece goes to die
