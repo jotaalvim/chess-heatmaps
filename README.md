@@ -10,7 +10,8 @@ a pgn file in case you want to have a look.
 Make sure you give a path for the pgn file and the username of the player and  it
 will only look for white games as default.
 
-The the heatmaps are from the knight, bishop, queen, rooks , pawns, king, respectively
+The the heatmaps are from the pawns, bishop, knight,  rooks, queen, king, respectively
+
 
 ### Options
 * -u <username>, username - mandatory to provide

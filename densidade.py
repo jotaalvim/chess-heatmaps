@@ -84,15 +84,9 @@ def moveTable (color, path, username):
 
     for jogo in games:
         gameSlice = re.findall(fr'\b{i}\. (.*?)(?:{end+1}|1000)',jogo+'1000')
-        if gameSlice == []:
-            gameSlice = ''
-        else:
-            gameSlice  = gameSlice[0]
+        gameSlice = ('' if gameSlice == [] else gameSlice[0])
 
-        if (color == 'black'):
-            pretas = r'\S+ '
-        else:
-            pretas = ''
+        pretas = (r'\S+ ' if color == 'black' else '')
 
         for peca,pos in re.findall(fr'\b[0-9]+\. {pretas}([NQBRK])x?([a-z][1-8])', gameSlice):
             if pos in dic[peca]:
@@ -105,7 +99,6 @@ def moveTable (color, path, username):
                 dic['P'][pos] += 1
             else:
                 dic['P'][pos]  = 1
-
 
 
         # replace O-O with Rg1 and Tf1
@@ -178,7 +171,7 @@ def moveTable (color, path, username):
     for key in 'NQPKRB':
         dPlot[key] = [l[key][i:i + n] for i in range(0, len(l[key]), n)] 
 
-    # trapalhada para por o tabuleiro com orientação das brancas
+    # rotates the board to be in whites orientation
     for key in 'NQPKRB':
         for row in dPlot[key]:
             row.reverse()
@@ -189,7 +182,6 @@ def moveTable (color, path, username):
         dPlot[key] = transpose.tolist()
 
     return dPlot
-
 
 
 def fill0(dic):
